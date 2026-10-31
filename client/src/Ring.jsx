@@ -6,14 +6,18 @@ const STOPS = ['#ffb25c', '#ff7a59', '#f2618f', '#b77cf0', '#7d93ff', '#ffc77a',
 const TAU = Math.PI * 2
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v))
 const easeOut = (x) => 1 - Math.pow(1 - x, 3)
+const easeInOut = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2)
 // Shortest signed difference between two angles
 const angleDiff = (a, b) => Math.atan2(Math.sin(a - b), Math.cos(a - b))
 
 /**
  * A softly breathing ring of light that turns toward whoever is nearby.
- * Ring geometry is anchored to `slotRef`, a layout element, so the DOM decides where it sits.
+ *
+ * - `slotRef`: layout element the ring is centred in (the DOM decides where it sits).
+ * - `control`: mutable ref the page writes to, read every frame:
+ *     { hover: bool, open: bool, knocks: number[] (performance.now() timestamps) }
  */
-export default function Ring({ slotRef }) {
+export default function Ring({ slotRef, control }) {
   const mainRef = useRef(null)
   const bloomRef = useRef(null)
   const hazeRef = useRef(null)
@@ -34,6 +38,8 @@ export default function Ring({ slotRef }) {
     // Eased state
     const focus = { angle: -Math.PI / 2, amount: 0 }
     const shift = { x: 0, y: 0 }
+    let hover = 0
+    let opened = 0
 
     const resize = () => {
       dpr = Math.min(window.devicePixelRatio || 1, 2)
@@ -73,10 +79,29 @@ export default function Ring({ slotRef }) {
       prev = now
       measure()
       const t = reduceMotion ? 6 : (now - start) / 1000
+      const ctl = control.current
 
       // Power-on: the ring opens out of a point of light.
       const wake = reduceMotion ? 1 : easeOut(clamp((t - 0.25) / 2.4, 0, 1))
       const breath = reduceMotion ? 0.5 : 0.5 + 0.5 * Math.sin((t / 7) * TAU - Math.PI / 2)
+
+      // Hover brightens; "open" widens the ring to make room for what's inside.
+      hover += ((ctl.hover ? 1 : 0) - hover) * (1 - Math.exp(-dt * 6))
+      const openTarget = ctl.open ? 1 : 0
+      opened = reduceMotion ? openTarget : opened + (openTarget - opened) * (1 - Math.exp(-dt * 3.2))
+      const grow = 1 + 0.32 * easeInOut(clamp(opened, 0, 1))
+
+      // Knocks: a quick dip-and-rebound per knock, plus an outward ripple.
+      let knock = 0
+      const ripples = []
+      if (!reduceMotion) {
+        for (const kt of ctl.knocks) {
+          const s = (now - kt) / 1000
+          if (s < 0 || s > 1.8) continue
+          knock += Math.exp(-s * 11)
+          ripples.push(s / 1.8)
+        }
+      }
 
       // Where should the ring's attention be?
       const idle = !pointer.active || now - pointer.last > 4000
@@ -104,8 +129,8 @@ export default function Ring({ slotRef }) {
 
       const ox = cx + shift.x
       const oy = cy + shift.y
-      const r = R * (0.15 + 0.85 * wake)
-      const amt = focus.amount * wake
+      const r = R * (0.15 + 0.85 * wake) * grow * (1 - 0.045 * knock)
+      const amt = Math.min(1.4, focus.amount + 0.35 * hover + 0.8 * knock) * wake
 
       // ---- build the ring outline ----
       const N = 220
@@ -120,7 +145,8 @@ export default function Ring({ slotRef }) {
                0.004 * Math.sin(5 * a - 0.8 * t) +
                0.003 * Math.sin(2 * a + 0.31 * t))
         const mid = r + wobble * wake + f * R * 0.025
-        const th = R * (0.028 + 0.012 * breath + 0.055 * f) * (0.4 + 0.6 * wake)
+        const th = R * (0.028 + 0.012 * breath + 0.055 * f + 0.012 * hover + 0.03 * knock) *
+          (0.4 + 0.6 * wake)
         const c = Math.cos(a), s = Math.sin(a)
         outer[i] = [ox + c * (mid + th / 2), oy + s * (mid + th / 2)]
         inner[i] = [ox + c * (mid - th / 2), oy + s * (mid - th / 2)]
@@ -128,6 +154,19 @@ export default function Ring({ slotRef }) {
 
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
       ctx.clearRect(0, 0, w, h)
+
+      const grad = ctx.createConicGradient(t * 0.06 - Math.PI / 2, ox, oy)
+      STOPS.forEach((c, i) => grad.addColorStop(i / (STOPS.length - 1), c))
+
+      // Ripples travel outward from the ring after each knock.
+      for (const p of ripples) {
+        ctx.globalAlpha = 0.45 * Math.pow(1 - p, 2) * wake
+        ctx.strokeStyle = grad
+        ctx.lineWidth = Math.max(1, R * 0.018 * (1 - p))
+        ctx.beginPath()
+        ctx.arc(ox, oy, r * (1 + 0.75 * easeOut(p)), 0, TAU)
+        ctx.stroke()
+      }
 
       ctx.beginPath()
       ctx.moveTo(outer[0][0], outer[0][1])
@@ -137,8 +176,6 @@ export default function Ring({ slotRef }) {
       for (let i = N - 2; i >= 0; i--) ctx.lineTo(inner[i][0], inner[i][1])
       ctx.closePath()
 
-      const grad = ctx.createConicGradient(t * 0.06 - Math.PI / 2, ox, oy)
-      STOPS.forEach((c, i) => grad.addColorStop(i / (STOPS.length - 1), c))
       ctx.globalAlpha = 0.25 + 0.75 * wake
       ctx.fillStyle = grad
       ctx.fill('evenodd')
@@ -150,7 +187,7 @@ export default function Ring({ slotRef }) {
       const hx = ox + Math.cos(focus.angle) * r
       const hy = oy + Math.sin(focus.angle) * r
       const hot = ctx.createRadialGradient(hx, hy, 0, hx, hy, R * 1.1)
-      hot.addColorStop(0, `rgba(255, 244, 228, ${0.75 * amt})`)
+      hot.addColorStop(0, `rgba(255, 244, 228, ${Math.min(1, 0.75 * amt)})`)
       hot.addColorStop(1, 'rgba(255, 244, 228, 0)')
       ctx.fillStyle = hot
       ctx.fillRect(0, 0, w, h)
@@ -187,7 +224,7 @@ export default function Ring({ slotRef }) {
       window.removeEventListener('pointerdown', onMove)
       document.documentElement.removeEventListener('pointerleave', onLeave)
     }
-  }, [slotRef])
+  }, [slotRef, control])
 
   return (
     <div className="ring" aria-hidden="true">

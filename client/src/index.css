@@ -92,13 +92,141 @@ body {
 }
 
 .ring-slot {
+  position: relative;
   width: min(64vmin, 520px, 52svh);
   aspect-ratio: 1;
+  container-type: inline-size;
 }
 
 .message {
   display: grid;
   gap: 18px;
+  transition:
+    opacity 0.7s var(--ease),
+    filter 0.7s var(--ease),
+    transform 0.7s var(--ease);
+}
+
+.is-open .message {
+  opacity: 0;
+  filter: blur(10px);
+  transform: translateY(12px);
+  pointer-events: none;
+}
+
+/* ---------- the hidden door ---------- */
+
+/* Invisible hit area over the ring. The only hint is the cursor and the ring brightening. */
+.knock {
+  position: absolute;
+  inset: 11%;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.knock:focus-visible {
+  outline: 1px solid rgba(244, 239, 233, 0.3);
+  outline-offset: 10px;
+}
+
+.is-open .knock {
+  visibility: hidden;
+}
+
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+}
+
+.hello {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 5cqw;
+  text-align: center;
+  visibility: hidden;
+  opacity: 0;
+  transform: scale(0.94);
+  filter: blur(8px);
+  transition:
+    opacity 0.4s var(--ease),
+    transform 0.4s var(--ease),
+    filter 0.4s var(--ease),
+    visibility 0s linear 0.4s;
+}
+
+.is-open .hello {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  filter: none;
+  transition:
+    opacity 0.9s var(--ease) 0.25s,
+    transform 0.9s var(--ease) 0.25s,
+    filter 0.9s var(--ease) 0.25s,
+    visibility 0s;
+}
+
+.hello-title {
+  display: grid;
+  font-size: 8.6cqw;
+  font-weight: 620;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+.hello-glow {
+  padding-bottom: 0.08em;
+  background: var(--glow);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hello-email {
+  padding: 0.75em 1.35em;
+  border: 1px solid rgba(244, 239, 233, 0.18);
+  border-radius: 999px;
+  background: rgba(244, 239, 233, 0.04);
+  color: var(--ink);
+  font-size: clamp(0.85rem, 3.4cqw, 1rem);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  transition: background 0.3s, border-color 0.3s;
+}
+
+.hello-email:hover,
+.hello-email:focus-visible {
+  background: rgba(244, 239, 233, 0.1);
+  border-color: rgba(244, 239, 233, 0.4);
+  outline: none;
+}
+
+.hello-close {
+  border: 0;
+  background: none;
+  color: var(--ink-faint);
+  font: inherit;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.hello-close:hover,
+.hello-close:focus-visible {
+  color: var(--ink-soft);
+  outline: none;
 }
 
 .tagline {
