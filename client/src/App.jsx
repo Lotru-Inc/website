@@ -1,25 +1,29 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import Home from './pages/Home'
-import Careers from './pages/Careers'
-import './App.css'
+import { useRef } from 'react'
+import Ring from './Ring'
 
-function App() {
+export default function App() {
+  const slotRef = useRef(null)
+  const year = new Date().getFullYear()
+
   return (
-    <Router>
-      <div className="app">
-        <Header />
-        <main className="main-content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/careers" element={<Careers />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </Router>
+    <>
+      <Ring slotRef={slotRef} />
+      <div className="grain" aria-hidden="true" />
+
+      <main className="stage">
+        <h1 className="wordmark">lotru</h1>
+
+        <div className="ring-slot" ref={slotRef} />
+
+        <div className="message">
+          <p className="tagline">
+            <span className="tagline-lead">Your Home. Your Data.</span>{' '}
+            <span className="tagline-glow">Finally Smart.</span>
+          </p>
+        </div>
+      </main>
+
+      <footer className="foot">© {year} Lotru</footer>
+    </>
   )
 }
-
-export default App
