@@ -20,6 +20,7 @@ export default function App() {
             <span className="tagline-lead">Your Home. Your Data.</span>{' '}
             <span className="tagline-glow">Finally Smart.</span>
           </p>
+          <p className="soon">Coming soon</p>
         </div>
       </main>
 
