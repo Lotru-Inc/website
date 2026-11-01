@@ -1,4 +1,5 @@
 @import '@fontsource-variable/geist';
+@import '@fontsource-variable/fredoka';
 
 *,
 *::before,
@@ -83,12 +84,16 @@ body {
 }
 
 .wordmark {
-  font-size: 1.05rem;
-  font-weight: 560;
-  letter-spacing: 0.02em;
+  line-height: 0;
   color: var(--ink);
   opacity: 0;
   animation: rise 1.4s var(--ease) 0.5s forwards;
+}
+
+.wordmark-logo {
+  display: block;
+  height: clamp(28px, 4vh, 38px);
+  width: auto;
 }
 
 .ring-slot {
@@ -249,7 +254,14 @@ body {
 }
 
 .tagline-glow {
-  padding-bottom: 0.08em; /* keep descenders inside the clipped gradient */
+  /* Rounded line, matching the logo's typeface. */
+  font-family: 'Fredoka Variable', 'Geist Variable', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  /* The "y" reaches well below the line box; pad so the clipped gradient covers it,
+     then pull the following content back up by the same amount. */
+  padding-bottom: 0.44em;
+  margin-bottom: -0.36em;
   background: var(--glow);
   background-size: 200% 100%;
   -webkit-background-clip: text;

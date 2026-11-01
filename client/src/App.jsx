@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import Logo from './Logo'
 import Ring from './Ring'
 
 const HELLO_PATH = '/hello'
@@ -76,7 +77,9 @@ export default function App() {
       {open && <div className="scrim" onClick={close} aria-hidden="true" />}
 
       <main className="stage">
-        <h1 className="wordmark">lotru</h1>
+        <h1 className="wordmark">
+          <Logo className="wordmark-logo" />
+        </h1>
 
         <div className="ring-slot" ref={slotRef}>
           <button
