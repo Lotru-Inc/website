@@ -1,3 +1,3 @@
-# Lotru Labs Website
+# Lotru Website
 
-Company website, nothing fancy.
+Pre-announcement teaser: a single page. Run `pnpm dev`, or `pnpm build` to build into `client/dist`.
