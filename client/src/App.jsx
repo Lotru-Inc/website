@@ -4,7 +4,7 @@ import Ring from './Ring'
 
 const HELLO_PATH = '/hello'
 // Assembled at runtime so the address never appears verbatim in the HTML.
-const EMAIL = ['hello', 'lotrulabs.com'].join('@')
+const EMAIL = ['hello', 'lotru.com'].join('@')
 const MAILTO = `mailto:${EMAIL}?subject=${encodeURIComponent("Let's chat")}`
 
 const isHelloPath = () => window.location.pathname.replace(/\/+$/, '') === HELLO_PATH

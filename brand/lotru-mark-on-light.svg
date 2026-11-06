@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 64 64" role="img" aria-labelledby="lotru-mark-light-title lotru-mark-light-description">
+  <title id="lotru-mark-light-title">Lotru logo</title>
+  <desc id="lotru-mark-light-description">The Lotru favicon ring, outlined as editable vector paths with a transparent background. Colors for light backgrounds.</desc>
+  <defs>
+    <linearGradient id="lotru-mark-light-gradient-0" gradientUnits="userSpaceOnUse" x1="32" y1="10.11" x2="42.95" y2="13.04">
+      <stop offset="0" stop-color="#f29c3f" />
+      <stop offset="1" stop-color="#f3913e" />
+    </linearGradient>
+    <linearGradient id="lotru-mark-light-gradient-1" gradientUnits="userSpaceOnUse" x1="42.95" y1="13.04" x2="50.96" y2="21.05">
+      <stop offset="0" stop-color="#f3913e" />
+      <stop offset="1" stop-color="#f1773c" />
+    </linearGradient>
+    <linearGradient id="lotru-mark-light-gradient-2" gradientUnits="userSpaceOnUse" x1="50.96" y1="21.05" x2="53.89" y2="32">
+      <stop offset="0" stop-color="#f1773c" />
+      <stop offset="1" stop-color="#ed6147" />
+    </linearGradient>
+    <linearGradient id="lotru-mark-light-gradient-3" gradientUnits="userSpaceOnUse" x1="53.89" y1="32" x2="50.96" y2="42.95">
+      <stop offset="0" stop-color="#ed6147" />
+      <stop offset="1" stop-color="#e2506c" />
+    </linearGradient>
+    <linearGradient id="lotru-mark-light-gradient-4" gradientUnits="userSpaceOnUse" x1="50.96" y1="42.95" x2="42.95" y2="50.96">
+      <stop offset="0" stop-color="#e2506c" />
+      <stop offset="1" stop-color="#cf4a96" />
+    </linearGradient>
+    <linearGradient id="lotru-mark-light-gradient-5" gradientUnits="userSpaceOnUse" x1="42.95" y1="50.96" x2="32" y2="53.89">
+      <stop offset="0" stop-color="#cf4a96" />
+      <stop offset="1" stop-color="#ac5bcb" />
+    </linearGradient>
+    <linearGradient id="lotru-mark-light-gradient-6" gradientUnits="userSpaceOnUse" x1="32" y1="53.89" x2="21.05" y2="50.96">
+      <stop offset="0" stop-color="#ac5bcb" />
+      <stop offset="1" stop-color="#8b69ee" />
+    </linearGradient>
+    <linearGradient id="lotru-mark-light-gradient-7" gradientUnits="userSpaceOnUse" x1="21.05" y1="50.96" x2="13.04" y2="42.95">
+      <stop offset="0" stop-color="#8b69ee" />
+      <stop offset="1" stop-color="#7172ef" />
+    </linearGradient>
+    <linearGradient id="lotru-mark-light-gradient-8" gradientUnits="userSpaceOnUse" x1="13.04" y1="42.95" x2="10.11" y2="32">
+      <stop offset="0" stop-color="#7172ef" />
+      <stop offset="1" stop-color="#777fd3" />
+    </linearGradient>
+    <linearGradient id="lotru-mark-light-gradient-9" gradientUnits="userSpaceOnUse" x1="10.11" y1="32" x2="13.04" y2="21.05">
+      <stop offset="0" stop-color="#777fd3" />
+      <stop offset="1" stop-color="#c0937b" />
+    </linearGradient>
+    <linearGradient id="lotru-mark-light-gradient-10" gradientUnits="userSpaceOnUse" x1="13.04" y1="21.05" x2="21.05" y2="13.04">
+      <stop offset="0" stop-color="#c0937b" />
+      <stop offset="1" stop-color="#f09f40" />
+    </linearGradient>
+    <linearGradient id="lotru-mark-light-gradient-11" gradientUnits="userSpaceOnUse" x1="21.05" y1="13.04" x2="32" y2="10.11">
+      <stop offset="0" stop-color="#f09f40" />
+      <stop offset="1" stop-color="#f29c3f" />
+    </linearGradient>
+  </defs>
+  <path d="M 32 1.005 A 30.995 30.995 0 0 1 48.558516 5.798748 L 38.830154 21.192354 A 12.785 12.785 0 0 0 32 19.215 Z" fill="url(#lotru-mark-light-gradient-0)" />
+  <path d="M 47.4975 5.157543 A 30.995 30.995 0 0 1 59.440721 17.588308 L 43.31891 26.055381 A 12.785 12.785 0 0 0 38.3925 20.927865 Z" fill="url(#lotru-mark-light-gradient-1)" />
+  <path d="M 58.842457 16.5025 A 30.995 30.995 0 0 1 62.970207 33.239469 L 44.774773 32.511264 A 12.785 12.785 0 0 0 43.072135 25.6075 Z" fill="url(#lotru-mark-light-gradient-2)" />
+  <path d="M 62.995 32 A 30.995 30.995 0 0 1 58.201252 48.558516 L 42.807646 38.830154 A 12.785 12.785 0 0 0 44.785 32 Z" fill="url(#lotru-mark-light-gradient-3)" />
+  <path d="M 58.842457 47.4975 A 30.995 30.995 0 0 1 46.411692 59.440721 L 37.944619 43.31891 A 12.785 12.785 0 0 0 43.072135 38.3925 Z" fill="url(#lotru-mark-light-gradient-4)" />
+  <path d="M 47.4975 58.842457 A 30.995 30.995 0 0 1 30.760531 62.970207 L 31.488736 44.774773 A 12.785 12.785 0 0 0 38.3925 43.072135 Z" fill="url(#lotru-mark-light-gradient-5)" />
+  <path d="M 32 62.995 A 30.995 30.995 0 0 1 15.441484 58.201252 L 25.169846 42.807646 A 12.785 12.785 0 0 0 32 44.785 Z" fill="url(#lotru-mark-light-gradient-6)" />
+  <path d="M 16.5025 58.842457 A 30.995 30.995 0 0 1 4.559279 46.411692 L 20.68109 37.944619 A 12.785 12.785 0 0 0 25.6075 43.072135 Z" fill="url(#lotru-mark-light-gradient-7)" />
+  <path d="M 5.157543 47.4975 A 30.995 30.995 0 0 1 1.029793 30.760531 L 19.225227 31.488736 A 12.785 12.785 0 0 0 20.927865 38.3925 Z" fill="url(#lotru-mark-light-gradient-8)" />
+  <path d="M 1.005 32 A 30.995 30.995 0 0 1 5.798748 15.441484 L 21.192354 25.169846 A 12.785 12.785 0 0 0 19.215 32 Z" fill="url(#lotru-mark-light-gradient-9)" />
+  <path d="M 5.157543 16.5025 A 30.995 30.995 0 0 1 17.588308 4.559279 L 26.055381 20.68109 A 12.785 12.785 0 0 0 20.927865 25.6075 Z" fill="url(#lotru-mark-light-gradient-10)" />
+  <path d="M 16.5025 5.157543 A 30.995 30.995 0 0 1 33.239469 1.029793 L 32.511264 19.225227 A 12.785 12.785 0 0 0 25.6075 20.927865 Z" fill="url(#lotru-mark-light-gradient-11)" />
+</svg>
