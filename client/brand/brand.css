@@ -909,7 +909,15 @@ tbody tr:last-child td {
 }
 
 .font-meta {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
   padding: 16px 20px 20px;
+}
+
+/* Details and downloads sit at the bottom, so both typeface cards line up. */
+.font-meta dl {
+  margin-top: auto;
 }
 
 .font-meta > p {

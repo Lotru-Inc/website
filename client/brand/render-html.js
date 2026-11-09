@@ -267,7 +267,7 @@ function constructionDiagram() {
   const right = x + w + 30
   return `<svg class="diagram" viewBox="${vb.join(' ')}" role="img" aria-label="Construction of the wordmark: the ring sits between the baseline and x-height with a small overshoot, and the letters are knocked out around it">
   <defs><mask id="ck" maskUnits="userSpaceOnUse" x="${x}" y="${y}" width="${w}" height="${h}"><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#fff"/><circle cx="${cx}" cy="${cy}" r="${geo.knockoutRadius}" fill="#000"/></mask></defs>
-  <path d="${geo.letters}" fill="currentColor" fill-opacity=".16" mask="url(#ck)"/>
+  <path d="${geo.letters}" fill="currentColor" fill-opacity=".42" mask="url(#ck)"/>
   <g fill="none" stroke="currentColor" stroke-width="4">
     <circle cx="${cx}" cy="${cy}" r="${outer}"/>
     <circle cx="${cx}" cy="${cy}" r="${inner}"/>
