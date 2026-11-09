@@ -1,5 +1,15 @@
 {
+  "headers": [
+    {
+      "source": "/brand/:path*",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }]
+    }
+  ],
   "rewrites": [
+    {
+      "source": "/brand",
+      "destination": "/brand/index.html"
+    },
     {
       "source": "/(.*)",
       "destination": "/index.html"
