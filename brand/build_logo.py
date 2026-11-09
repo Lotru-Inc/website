@@ -2,9 +2,9 @@
 Build the lotru wordmark: Fredoka (weight 600) letters, with the "o" replaced by the ring of light.
 
 Outputs
-  brand/lotru-logo-on-dark.svg      standalone logo for dark backgrounds
-  brand/lotru-logo-on-light.svg     standalone logo for light backgrounds
-  client/src/logo-geometry.json     letter outlines + ring geometry for the site's <Logo /> component
+  client/public/brand/logos/lotru-logo-on-dark.svg      standalone logo for dark backgrounds
+  client/public/brand/logos/lotru-logo-on-light.svg     standalone logo for light backgrounds
+  client/src/logo-geometry.json                         letter outlines + ring geometry for the site's <Logo /> component
 
 Rules (the "Pure" concept):
   - ring diameter = the font's x-height (from "u") + 4% overshoot, like a real round letter
@@ -39,12 +39,12 @@ from fontTools.ttLib import TTFont
 ROOT = Path(__file__).resolve().parent.parent
 
 ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-ap.add_argument("--font", type=Path, default=ROOT / "brand/source/Fredoka-Variable.woff2")
+ap.add_argument("--font", type=Path, default=ROOT / "client/public/brand/fonts/Fredoka-Variable.woff2")
 ap.add_argument("--wght", type=float, default=600, help="instance a variable font at this weight (0 = leave as is)")
 ap.add_argument("--axis", action="append", default=[], metavar="TAG=VALUE", help="pin any variable axis, e.g. SOFT=100 (repeatable)")
 ap.add_argument("--soften", type=float, default=0.0, help="round the letter corners: round-join outline width in em")
 ap.add_argument("--tracking", type=float, default=0.0, help="letter-spacing in em (like CSS)")
-ap.add_argument("--svg-dir", type=Path, default=ROOT / "brand")
+ap.add_argument("--svg-dir", type=Path, default=ROOT / "client/public/brand/logos")
 ap.add_argument("--geometry", type=Path, default=ROOT / "client/src/logo-geometry.json")
 ap.add_argument("--favicon", type=Path, help="also write the ring on its own as a favicon SVG")
 ap.add_argument("--touch-icon-svg", type=Path, help="also write a 180px home-screen icon SVG (ring on dark)")
@@ -223,8 +223,8 @@ def svg(ink, stops, title="lotru"):
     )
 
 
-(args.svg_dir / "lotru-logo-on-dark.svg").write_text(svg("#f4efe9", DARK_STOPS))
-(args.svg_dir / "lotru-logo-on-light.svg").write_text(svg("#0f0e0d", LIGHT_STOPS))
+(args.svg_dir / "lotru-logo-on-dark.svg").write_text(svg("#fbf8f4", DARK_STOPS))
+(args.svg_dir / "lotru-logo-on-light.svg").write_text(svg("#0a0908", LIGHT_STOPS))
 
 geometry = {
     "viewBox": [round(v, 1) for v in vb],
