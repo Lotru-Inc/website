@@ -9,10 +9,16 @@ const MAILTO = `mailto:${EMAIL}?subject=${encodeURIComponent("Let's chat")}`
 
 const isHelloPath = () => window.location.pathname.replace(/\/+$/, '') === HELLO_PATH
 
+// Slow back-and-forth drift of the "Finally Smart." gradient: 12s each way, eased,
+// starting once the line has risen in. Runs on the ring's clock (see Ring `onFrame`).
+const SHIMMER_DELAY = 2.1
+const SHIMMER_HALF_PERIOD = 12
+
 export default function App() {
   const slotRef = useRef(null)
   const knockRef = useRef(null)
   const emailRef = useRef(null)
+  const glowRef = useRef(null)
   const control = useRef({ hover: false, open: false, knocks: [] })
   const timers = useRef([])
   const returnFocus = useRef(false)
@@ -35,6 +41,13 @@ export default function App() {
     control.current.knocks = [now, now + 190]
     timers.current.push(setTimeout(() => show(true), 520))
   }, [show])
+
+  const shimmer = useCallback((t) => {
+    const el = glowRef.current
+    if (!el || t < SHIMMER_DELAY) return
+    const pos = 50 - 50 * Math.cos((Math.PI * (t - SHIMMER_DELAY)) / SHIMMER_HALF_PERIOD)
+    el.style.backgroundPosition = `${pos.toFixed(2)}% 50%`
+  }, [])
 
   const close = useCallback(() => {
     if (!control.current.open) return
@@ -72,8 +85,7 @@ export default function App() {
 
   return (
     <div className={open ? 'site is-open' : 'site'}>
-      <Ring slotRef={slotRef} control={control} />
-      <div className="grain" aria-hidden="true" />
+      <Ring slotRef={slotRef} control={control} onFrame={shimmer} />
       {open && <div className="scrim" onClick={close} aria-hidden="true" />}
 
       <main className="stage">
@@ -116,7 +128,7 @@ export default function App() {
         <div className="message" aria-hidden={open}>
           <p className="tagline">
             <span className="tagline-lead">Your Home. Your Data.</span>{' '}
-            <span className="tagline-glow">Finally Smart.</span>
+            <span ref={glowRef} className="tagline-glow">Finally Smart.</span>
           </p>
           <p className="soon">Coming soon</p>
         </div>

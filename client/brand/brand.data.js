@@ -243,7 +243,7 @@ export const motion = {
 }
 
 export const texture = {
-  grain: 'Fractal-noise film grain over the page at 12% opacity with mix-blend-mode overlay. It keeps dark gradients from banding and adds warmth. Dark theme only.',
+  grain: 'Fractal-noise film grain over the ring and its glow at 12% opacity, overlay blend. It keeps dark gradients from banding and adds warmth. On the site it is drawn inside the ring canvas rather than as a page-wide layer, which would be re-blended every frame. Dark theme only.',
 }
 
 export const uiRules = [
